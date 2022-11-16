@@ -2,13 +2,17 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use App\Repository\StudentRepository;
+use App\Repository\UserRepository;
+use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * @method string getUserIdentifier()
+ */
 #[ORM\Entity(repositoryClass:UserRepository::class)]
 
 
-class User
+class User implements \Symfony\Component\Security\Core\User\UserInterface
 {
     
      #[ORM\Id] 
@@ -130,5 +134,38 @@ class User
     }
 
 
+    public function getRoles(): array
+    {
 
+        // guarantee every user at least has ROLE_USER
+        $roles =[];
+        $roles = $this->role;
+
+        return array_unique((array)$roles);
+    }
+
+    public function getPassword(): string
+    {
+        return (string)$this->mdp;
+    }
+
+    public function getSalt(): ?string
+    {
+        return null;
+    }
+
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function __call(string $name, array $arguments)
+    {
+        // TODO: Implement @method string getUserIdentifier()
+    }
 }
