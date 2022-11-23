@@ -26,8 +26,8 @@ security:
             lazy: true
             provider: app_user_provider
             guard:
-            custom_authenticators:
-                    - 'App\Security\LoginFormAuthenticator'
+                authenticators:
+                    - App\Security\LoginFormAuthenticator
             logout:
                 path: app_logout
                 target: /login
