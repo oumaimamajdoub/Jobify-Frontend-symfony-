@@ -1,0 +1,15 @@
+<h1>List evenements</h1>
+{% for c in listEvent %}
+    id: {{ c.id }}
+    nom:{{ c.nom }}
+    dateDebut: {{ c.dateDebut }}
+    datefin: {{ c.datefin }}
+    organisateur: {{ c.organisateur }}
+    lieu: {{ c.lieu }}
+    disponibilite: {{ c.disponibilite }}
+    programme: {{ c.programme }}
+    numconcat: {{ c.numconcat }}
+    parnumb: {{ c.parnumb }}
+
+    <br>
+{% endfor %}
