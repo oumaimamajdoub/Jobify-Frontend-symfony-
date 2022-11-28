@@ -1,0 +1,8 @@
+
+->setBody( $this->renderView(
+"emails/registration.html.twig",
+[
+'name' => $user->getUsername(), 'picture' => $img]),
+'text/html'
+);
+$mailer->send($message);
