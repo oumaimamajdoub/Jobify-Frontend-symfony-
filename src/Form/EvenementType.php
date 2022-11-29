@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class EvenementType extends AbstractType
 {
@@ -14,8 +15,18 @@ class EvenementType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('dateDebut')
-            ->add('datefin')
+            ->add('dateDebut' , DateType::class, [
+
+                'widget' => 'single_text',
+
+
+            ])
+            ->add('datefin', DateType::class, [
+
+                'widget' => 'single_text',
+
+
+            ])
             ->add('organisateur')
             ->add('lieu')
             ->add('disponibilite')

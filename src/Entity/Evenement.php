@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\EvenementRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Validator\Constraints\Date;
 
 #[ORM\Entity(repositoryClass: EvenementRepository::class)]
 class Evenement
@@ -18,12 +20,11 @@ class Evenement
     #[Assert\NotBlank(message:"Champ vide")]
     private ?string $nom = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $dateDebut= null ;
 
-    private ?string $dateDebut = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $datefin = null;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $datefin= null ;
 
     #[ORM\Column(length: 255)]
     private ?string $organisateur = null;
@@ -60,24 +61,24 @@ class Evenement
         return $this;
     }
 
-    public function getDateDebut(): ?string
+    public function getDateDebut(): ?\DateTimeInterface
     {
         return $this->dateDebut;
     }
 
-    public function setDateDebut(string $dateDebut): self
+    public function setDateDebut(\DateTimeInterface $dateDebut): self
     {
         $this->dateDebut = $dateDebut;
 
         return $this;
     }
 
-    public function getDatefin(): ?string
+    public function getDatefin(): ?\DateTimeInterface
     {
         return $this->datefin;
     }
 
-    public function setDatefin(string $datefin): self
+    public function setDatefin(\DateTimeInterface $datefin): self
     {
         $this->datefin = $datefin;
 

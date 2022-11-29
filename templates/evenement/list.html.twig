@@ -1,15 +1,112 @@
+{% extends 'base.html.twig' %}
+{% block title %}Hello Evenement!{% endblock %}
+{% block body %}
+
+    <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+
+    <section class="s-bricks">
+
+        <div class="masonry">
+            <div class="bricks-wrapper h-group">
+
+                <div class="grid-sizer"></div>
+
+                {% for c in listEvent %}
+                <article class="brick entry format-standard animate-this">
+
+                    <div class="entry__thumb">
+                        <a href="single-standard.html" class="thumb-link">
+                            <img src="images/thumbs/masonry/woodcraft-600.jpg"
+                                 srcset="images/thumbs/masonry/woodcraft-600.jpg 1x, images/thumbs/masonry/woodcraft-1200.jpg 2x"
+                                 alt="">
+                        </a>
+                    </div> <!-- end entry__thumb -->
+
+                    <div class="entry__text">
+                        <div class="entry__header">
+
+                            <div class="entry__meta">
+                                <span class="entry__cat-links">
+                                    <a href="#">{{ c.dateDebut ? c.dateDebut|date('Y/m/d') : '' }}</a>
+                                    <a href="#">{{ c.datefin ? c.datefin|date('Y/m/d') : '' }}</a>
+                                </span>
+                            </div>
+
+                            <h1 class="entry__title"><a href="single-standard.html">{{ c.nom }}</a>
+                            </h1>
+
+                        </div>
+                        <div class="entry__excerpt">
+                            <p>
+                                organisateur: {{ c.organisateur }} <br>
+                                lieu: {{ c.lieu }} <br>
+                                disponibilite: {{ c.disponibilite }}<br>
+                                programme: {{ c.programme }}<br>
+                                numconcat: {{ c.numconcat }}<br>
+                                parnumb: {{ c.parnumb }}<br>
+
+                            </p>
+                        </div>
+                        <a target="_blank" href="{{ path('app.generateQr', { 'id': c.getId() }) }}" class="featured-post-nav__next">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M11.293 17.293l1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"></path></svg>
+                        </a>
+                    </div> <!-- end entry__text -->
+
+                </article> <!-- end entry -->
+
+                {% endfor %}
+
+            </div> <!-- end brick-wrapper -->
+
+        </div> <!-- end masonry -->
+
+        <!-- end row -->
+
+    </section> <!-- end s-bricks -->
+
+    <script>
+        var xValues =[];
+        var yValues =[];
+        {% for c in listEvent %}
+        xValues.push("{{ c.nom }}");
+        yValues.push("{{ c.parnumb }}");
+        {% endfor %}
+
+        var barColors = [
+            "#b91d47",
+            "#00aba9",
+            "#2b5797",
+            "#e8c3b9",
+            "#1e7145"
+        ];
+
+        new Chart("myChart", {
+            type: "pie",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    backgroundColor: barColors,
+                    data: yValues
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: "Participations"
+                }
+            }
+        });
+    </script>
+
+{% endblock %}
+
+{#
 <h1>List evenements</h1>
 {% for c in listEvent %}
     id: {{ c.id }}
     nom:{{ c.nom }}
-    dateDebut: {{ c.dateDebut }}
+    dateDebut:
     datefin: {{ c.datefin }}
-    organisateur: {{ c.organisateur }}
-    lieu: {{ c.lieu }}
-    disponibilite: {{ c.disponibilite }}
-    programme: {{ c.programme }}
-    numconcat: {{ c.numconcat }}
-    parnumb: {{ c.parnumb }}
 
-    <br>z
-{% endfor %}
+    <br>
+ #}

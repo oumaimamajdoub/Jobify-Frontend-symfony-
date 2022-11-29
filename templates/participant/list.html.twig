@@ -1,7 +1,13 @@
-<h1>List participant</h1>
-{% for p in listparticipant %}
+
+
+
+{% extends 'base.html.twig' %}
+{% block title %}Hello Evenement!{% endblock %}
+{% block body %}
+    <h1>List participant</h1>
+    {% for p in listparticipant %}
     Name: {{ p.Name }}
     diplome:{{ p.diplome }}
+    {% endfor %}
 
-
-{% endfor %}
+{% endblock %}

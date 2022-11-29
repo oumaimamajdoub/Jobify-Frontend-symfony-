@@ -2,5 +2,5 @@
 {% block title %}Hello Evenement!{% endblock %}
 {% block body %}
 <h1>Add Evenement</h1>
-{{ form(formEvenement) }}
+{{ form(formEvenement, {attr: {novalidate: 'novalidate'}}) }}
 {% endblock %}

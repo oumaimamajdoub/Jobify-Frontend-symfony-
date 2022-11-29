@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Evenement;
 use App\Repository\EvenementRepository;
+use App\Service\QrCodeGenerator\QrCodeGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,16 +26,26 @@ class EvenementController extends AbstractController
     #[Route('/listEvent', name: 'list_event')]
     public function listEvenement(EvenementRepository $repository)
     {
-        $event= $repository->findAll();
-        return $this->render("evenement/list.html.twig",array("listEvent"=>$event));
+        $event = $repository->findAll();
+        return $this->render("evenement/list.html.twig", array("listEvent" => $event));
     }
-        #[Route('/addevenement', name: 'app_addevenement')]
+
+    #[Route('qr/{id}', name: 'app.generateQr')]
+    public function generate(Request $request, EvenementRepository $repository)
+    {
+        $event=$repository->find($request->get('id'));
+        $qr= new QrCodeGenerator();
+        $qr->generate($event);
+        return $this->render("qr.html.twig", ['id'=>$event->getId()]);
+    }
+
+    #[Route('/addevenement', name: 'app_addevenement')]
     public function addevenement(Request $request, ManagerRegistry $doctrine)
     {
         $evenement = new Evenement();
         $form = $this->createForm(EvenementType::class, $evenement);
         $form->handleRequest($request);
-        if ($form->isSubmitted()&& $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             //  $em= $this->getDoctrine()->getManager();
             $em = $doctrine->getManager();
             $em->persist($evenement);
@@ -44,36 +55,30 @@ class EvenementController extends AbstractController
         // return $this->render('product/add.html.twig',array("formProduct"=>$form->createView()));
         return $this->renderForm('evenement/add.html.twig', array("formEvenement" => $form));
     }
+
     #[Route('/updateForm/{id}', name: 'updateForm_evenement')]
-    public function updateForm($id,EvenementRepository $repository,Request $request,ManagerRegistry $doctrine)
+    public function updateForm($id, EvenementRepository $repository, Request $request, ManagerRegistry $doctrine)
     {
-        $evenement= $repository->find($id);
+        $evenement = $repository->find($id);
         $form = $this->createForm(EvenementType::class, $evenement);
-        $form->handleRequest($request) ;
-        if($form->isSubmitted()){
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
             $em = $doctrine->getManager();
             $em->flush();
             return $this->redirectToRoute("list_event");
         }
-        return $this->renderForm("evenement/update.html.twig",array("formEvenement"=>$form));
+        return $this->renderForm("evenement/update.html.twig", array("formEvenement" => $form));
     }
+
     #[Route('/removeForm/{id}', name: 'removeForm_categorie')]
-    public function removeEvenement(ManagerRegistry $doctrine,$id,EvenementRepository $repository): \Symfony\Component\HttpFoundation\RedirectResponse
+    public function removeEvenement(ManagerRegistry $doctrine, $id, EvenementRepository $repository): \Symfony\Component\HttpFoundation\RedirectResponse
     {
-        $evenement= $repository->find($id);
-        $em= $doctrine->getManager();
+        $evenement = $repository->find($id);
+        $em = $doctrine->getManager();
         $em->remove($evenement);
         $em->flush();
         return $this->redirectToRoute("list_event");
     }
-
-
-
-
-
-
-
-
 
 
 }
