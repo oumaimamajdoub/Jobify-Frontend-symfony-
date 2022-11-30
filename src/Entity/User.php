@@ -44,6 +44,24 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
     #[ORM\Column(length:255)]
     private ?string $role;
 
+    #[ORM\Column(length:255)]
+    private $reset_token;
+
+    /**
+     * @return mixed
+     */
+    public function getResetToken()
+    {
+        return $this->reset_token;
+    }
+    /**
+     * @param mixed $reset_token
+     */
+    public function setResetToken($reset_token): void
+    {
+        $this->reset_token = $reset_token;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,11 +18,16 @@ class HomeController extends AbstractController
         ]);}
 
 
-        #[Route('/dashboard', name: 'dashboard')]
-        public function inde(UserRepository $UserRepository): Response
+        #[Route('/frontcandidate', name: 'frontcandidate')]
+        public function inde(): Response
         {
-            return $this->render('User/dashboard.html.twig', [
-                'Users' => $UserRepository->findAll(),
+            return $this->render('home/frontcandidate.html.twig', [
             ]);
         }
+        #[Route('/frontentrepreneur', name: 'frontentrepreneur')]
+        public function ind(): Response
+        {
+        return $this->render('home/frontentrepreneur.html.twig', [
+        ]);
+    }
 }

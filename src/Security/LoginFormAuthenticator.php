@@ -48,7 +48,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     {
         $credentials = [
             'email' => $request->request->get('email'),
-            'mdp' => $request->request->get('password'),
+            'mdp' => $request->request->get('mdp'),
             'csrf_token' => $request->request->get('_csrf_token'),
         ];
         $request->getSession()->set(
@@ -100,6 +100,13 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         if(in_array('admin',$user->getRoles(),true)) {
             return new RedirectResponse($this->urlGenerator->generate('app_user_index'));
         }
+        if(in_array('entrepreneur',$user->getRoles(),true)) {
+            return new RedirectResponse($this->urlGenerator->generate('frontentrepreneur'));
+        }
+        if(in_array('candidate',$user->getRoles(),true)) {
+            return new RedirectResponse($this->urlGenerator->generate('frontcandidate'));
+        }
+
 
 
         // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
