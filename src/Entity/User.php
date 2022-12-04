@@ -44,11 +44,9 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
     #[ORM\Column(length:255)]
     private ?string $role;
 
-    /**
-     * @ORM\Column(type="string", length=180, nullable=true,unique=false )
-     */
-    private $reset_token;
 
+    #[ORM\Column(length:255,nullable:true)]
+    private $reset_token;
     /**
      * @return mixed
      */
@@ -63,6 +61,7 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
     {
         $this->reset_token = $reset_token;
     }
+
 
     public function getId(): ?int
     {

@@ -87,7 +87,7 @@ class SecurityController extends AbstractController
 
             //BUNDLE MAILER
             $message = (new Swift_Message('Mot de password oublié'))
-                ->setFrom('chadi.troudi@esprit.tn')
+                ->setFrom('oumaima.majdoub@esprit.tn')
                 ->setTo($user->getEmail())
                 ->setBody($this->renderView(
                 // templates/emails/registration.html.twig
