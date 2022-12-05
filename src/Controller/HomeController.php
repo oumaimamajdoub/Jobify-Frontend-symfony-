@@ -14,19 +14,21 @@ class HomeController extends AbstractController
     public function index(): Response
     {
         return $this->render('base.html.twig', [
-            'controller_name' => 'HomeController',
-        ]);}
+            'controller_name' => 'HomeController', 'success' => "Logged In successfully!"
+        ]);
+    }
 
 
-        #[Route('/frontcandidate', name: 'frontcandidate')]
-        public function inde(): Response
-        {
-            return $this->render('home/frontcandidate.html.twig', [
-            ]);
-        }
-        #[Route('/frontentrepreneur', name: 'frontentrepreneur')]
-        public function ind(): Response
-        {
+    #[Route('/frontcandidate', name: 'frontcandidate')]
+    public function inde(): Response
+    {
+        return $this->render('home/frontcandidate.html.twig', [
+        ]);
+    }
+
+    #[Route('/frontentrepreneur', name: 'frontentrepreneur')]
+    public function ind(): Response
+    {
         return $this->render('home/frontentrepreneur.html.twig', [
         ]);
     }
