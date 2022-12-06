@@ -51,7 +51,9 @@
                 <li><a href="contact.html" title="">Contact</a></li>
                 {% if app.user %}
                     <li> <a href="{{ path('app_logout') }}">Logout</a></li>
-
+                {% else %}
+                    <li> <a href="{{ path('registration') }}">Registration</a></li>
+                    <li> <a href="{{ path('app_login') }}">Login</a></li>
                 {% endif %}
             </ul> <!-- end header__nav -->
 
