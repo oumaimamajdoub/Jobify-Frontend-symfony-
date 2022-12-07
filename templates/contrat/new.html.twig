@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Contrat{% endblock %}
+
+{% block body %}
+    <h1>Create new Contrat</h1>
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-error">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {{ include('contrat/_form.html.twig') }}
+
+    <a href="{{ path('app_contrat_index') }}">back to list</a>
+{% endblock %}

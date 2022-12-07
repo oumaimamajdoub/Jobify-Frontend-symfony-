@@ -1,0 +1,13 @@
+java.lang.NullPointerException
+	at com.install4j.runtime.installer.InstallerVariables.initUserVars(Unknown Source)
+	at com.install4j.runtime.installer.InstallerVariables.initUserVars(Unknown Source)
+	at com.install4j.runtime.installer.controller.Controller.start(Unknown Source)
+	at com.install4j.runtime.installer.Installer.runInProcess(Unknown Source)
+	at com.install4j.runtime.installer.Installer.main(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at com.exe4j.runtime.LauncherEngine.launch(Unknown Source)
+	at com.exe4j.runtime.WinLauncher.main(Unknown Source)
+	at com.install4j.runtime.launcher.WinLauncher.main(Unknown Source)
